@@ -1,8 +1,13 @@
 // TODO object aanmaken met initial min point and initial max point
 // TODO object aanmaken met alle punten aan de linker kant wanneer die missen en alle punten aan de rechter kant wanneer die missen
 // TODO correcte letter en getal als name mee geven aan de points
-
+const fs = require('fs')
 const geolib = require('geolib')
+
+const settings = {
+    outputPath: 'dist/data/output/',
+    outputFileName: 'gridJsonData'
+}
 const extremeValues = [
     {
         row: '1',
@@ -84,9 +89,9 @@ const extremeValues = [
         min: {
             '﻿ObjectID': '8',
             ID: '8',
-            Name: 'A4',
-            Latitude: '37.73825583',
-            Longitude: '24.0510081',
+            Name: 'B4',
+            Latitude: '37.73821804',
+            Longitude: '24.05213961',
             Height: '32.6961',
             Easting: '240139.8168',
             Northing: '4180869.749',
@@ -160,8 +165,8 @@ const extremeValues = [
             '﻿ObjectID': '9',
             ID: '9',
             Name: 'A52',
-            Latitude: '37.74005714',
-            Longitude: '24.05110131',
+            Latitude: '37.74003844',
+            Longitude: '24.05166682',
             Height: '44.5943',
             Easting: '240154.3355',
             Northing: '4181069.407',
@@ -294,6 +299,8 @@ function coordcalc() {
         .map(calcBasecase)
         .map(calcPointsRight)
         .map(calcPointsLeft)
+        .map(rewrite)
+    writeData(rows)
 }
 
 function calcBearings(extremeValues) {
@@ -316,6 +323,21 @@ function calcBearings(extremeValues) {
     }
     return bearing
 }
+function calcBasecase(row) {
+    let found = false
+    do {
+        baseCases.forEach((basecase) => {
+            if(row.min.name.charAt(0) == basecase.identifier) {
+                row.basecase = {
+                    minLetter: row.min.name.charAt(0),
+                    val: basecase.val
+                }
+                found = true
+            }
+        })
+    } while(found == false)
+    return row
+}
 function calcPointsRight(row) {
     let i = row.basecase.val
     let foo = 0
@@ -326,11 +348,10 @@ function calcPointsRight(row) {
         if(initial == true) {
             const identifierName = baseCases.find(x => x.val === i).identifier
             point.identifier = identifierName + row.row
-            point.coordinates = geolib.computeDestinationPoint(
-                { latitude: row.min.latitude, longitude: row.min.longitude },
-                50,
-                row.bearing
-            )
+            point.coordinates = {
+                latitude: row.min.latitude,
+                longitude: row.min.longitude
+            }
             row.rightpoints.push(point)
             initial = false
         } else {
@@ -357,8 +378,7 @@ function calcPointsLeft(row) {
         const point = new Object()
         if(initial == true) {
             const identifierName = baseCases.find(x => x.val === (row.basecase.val-1)).identifier
-            console.log(identifierName)
-            point.indentifier = identifierName + row.row
+            point.identifier = identifierName + row.row
             point.coordinates = geolib.computeDestinationPoint(
                 { latitude: row.min.latitude, longitude: row.min.longitude },
                 -50,
@@ -379,22 +399,53 @@ function calcPointsLeft(row) {
         }
         i-=1
     } while(i > -3)
-    console.log(row)
     return row
 }
+function rewrite(row) {
+    const cleanedArray = []
+    row.rightpoints.forEach((rightpoint) => {
+        const newObj = new Object()
+        newObj.type = "Feature"
+        newObj.properties = {
+            name: rightpoint.identifier
+        }
+        newObj.geometry = {
+            type: "Point",
+            coordinates: [
+                rightpoint.coordinates.longitude,rightpoint.coordinates.latitude
+            ]
+        }
+        cleanedArray.push(newObj)
+    })
+    row.leftpoints.forEach((leftpoint) => {
+        const newObj = new Object()
+        newObj.type = "Feature"
+        newObj.properties = {
+            name: leftpoint.identifier
+        }
+        newObj.geometry = {
+            type: "Point",
+            coordinates: [
+                leftpoint.coordinates.longitude,leftpoint.coordinates.latitude
+            ]
+        }
+        cleanedArray.unshift(newObj)
+    })
 
-function calcBasecase(row) {
-    let found = false
-    do {
-        baseCases.forEach((basecase) => {
-            if(row.min.name.charAt(0) == basecase.identifier) {
-                row.basecase = {
-                    minLetter: row.min.name.charAt(0),
-                    val: basecase.val
-                }
-                found = true
+    return cleanedArray
+}
+
+function writeData(data, fileIndex = 0) {
+    fs.writeFile(settings.outputPath + settings.outputFileName +"_"+ fileIndex +".json",
+        JSON.stringify(data,null,4),
+        { encoding: 'utf8', flag: 'wx'},
+        function(err) {
+            if (err && err.code == "EEXIST") {
+                writeData(data, ++fileIndex)
+            } else if (err) {
+                return console.log(err)
+            } else {
+                console.log("The file was saved!")
             }
         })
-    } while(found == false)
-    return row
 }
