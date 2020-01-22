@@ -17,7 +17,8 @@ of 12,5 by 12,5 get assigned to 1 person who gets to search this "tile" for 20 m
 
 ## Grid
 Below is an image of the geo locations we got from Floris, and as you can see there are a lot of points missing inside this grid.
-<img src="src/images/github-images/aangleverde-locaties.png">
+
+<img src="src/images/github-images/aangeleverde-locaties.png">
 
 But what can we do with this information? I began searching for a possible solution to the problem at hand. I searched for ways to calculate with latitudes and longitudes
 and found out that you need a few things to start calculating point which are a beginning point, destination point and a bearing (which is the angle between the beginning point and destination point).
