@@ -1,6 +1,11 @@
 # Repository for Thorikosdash
 Dashboard for making data visible and understandable
 
+## Table of contents
+* [Demo](#demo)
+* [Introduction](#introduction)
+* [Grid](#grid)
+
 ## Demo
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ffb4fc85-192c-46d9-b242-6fc6df04a54b/deploy-status)](https://app.netlify.com/sites/hungry-hugle-63f43c/deploys)
 
@@ -46,3 +51,67 @@ The image below is a visual of how the tiles are named for a 50 x 50 grid.
 
 We also had to give names to the mesosquares for example tile 196 is devided into part 1 (top left), 2 (top right), 3 (bottom right) and 4 (bottom left)
 
+## Features
+### Mapbox
+For the background map behind the grid i have used Mapbox so i can switch between map themes and have a nice looking and zoomable map.
+
+```javascript
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGFtaWFudmVsdGthbXAiLCJhIjoiY2szNGdvcTA1MG0zYzNibnlyNW1nZWZreSJ9.fUYUVFTp1_PjhZ6HkC0SDQ'
+let mapBox = new mapboxgl.Map({
+    container: 'mapbox',
+    style: 'mapbox://styles/damianveltkamp/ck372eqvz19fl1ctfeghxifun',
+    center: [24.054086874072482,37.739184054390634],
+    zoom: 16.8
+})
+```
+
+### Grid 
+The grid is formated like a geo.json file with a featurecollection consisting of features to be drawn on a map. So a feature is a tile of the grid.
+
+```json
+{
+            "type": "Feature",
+            "properties": {
+                "name": "c/",
+                "row": 53,
+                "mesoindex": 1
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            24.049985023339868,
+                            37.74100146276254
+                        ],
+                        [
+                            24.050269079944552,
+                            37.74099192299907
+                        ],
+                        [
+                            24.050263481754197,
+                            37.74076713791649
+                        ],
+                        [
+                            24.04997942591854,
+                            37.74077667593752
+                        ],
+                        [
+                            24.049985023339868,
+                            37.74100146276254
+                        ]
+                    ]
+                ]
+            }
+        }
+```
+
+## Filtering
+The filtering feature will get items from the surveyfindings file and nest the results inside the tiles. So we can later do something with these results based on the location it has been found.
+
+## Heatmap
+After filtering we display the outcome as a heatmap. The amount of found objects will influence the color of a tile and thus give insight into where the hotspots of findings for a specific filter are.
+
+### Outcome 
+
+<img src="src/images/github-images/outcome-heatmap.png">
