@@ -36,3 +36,13 @@ After a lot of strugling i got to this outcome
 
 ### 25x25 grid
 <img src="src/images/github-images/25x25grid.png">
+
+### Tile names
+
+We also had to give the tiles names so that we whould know where a specific shard had been found inside the grid.
+The image below is a visual of how the tiles are named for a 50 x 50 grid. 
+
+<img src="src/images/github-images/gridnumbers.png">
+
+We also had to give names to the mesosquares for example tile 196 is devided into part 1 (top left), 2 (top right), 3 (bottom right) and 4 (bottom left)
+
