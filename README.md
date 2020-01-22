@@ -5,6 +5,9 @@ Dashboard for making data visible and understandable
 * [Demo](#demo)
 * [Introduction](#introduction)
 * [Grid](#grid)
+* [Features](#features)
+* [Library's](#library's)
+* [Installing](#installing)
 
 ## Demo
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ffb4fc85-192c-46d9-b242-6fc6df04a54b/deploy-status)](https://app.netlify.com/sites/hungry-hugle-63f43c/deploys)
@@ -109,9 +112,40 @@ The grid is formated like a geo.json file with a featurecollection consisting of
 ## Filtering
 The filtering feature will get items from the surveyfindings file and nest the results inside the tiles. So we can later do something with these results based on the location it has been found.
 
+Special thanks to Kyle who's filtering script helpt me out a lot to getting mine to work. [Kyle's github](https://github.com/kylebot0)
+
 ## Heatmap
 After filtering we display the outcome as a heatmap. The amount of found objects will influence the color of a tile and thus give insight into where the hotspots of findings for a specific filter are.
 
 ### Outcome 
 
 <img src="src/images/github-images/outcome-heatmap.png">
+
+# Library's
+* [ge0lib](https://github.com/manuelbieh/geolib)
+* [Mapbox](https://docs.mapbox.com/mapbox-gl-js/overview/?utm_medium=sem&utm_source=google&utm_campaign=sem|google|brand|chko-googlesearch-pr01-dynamicsearchcampaign-nb.broad-all-landingpage-search&utm_term=brand&utm_content=chko-googlesearch-pr01-dynamicsearchcampaign-nb.broad-all-landingpage-search&gclid=CjwKCAiAgqDxBRBTEiwA59eEN1NvSjdnguKL5cLOqcYRouyLv_AQZucv6lpt9k7CEQo92GVt4tER6xoCz0wQAvD_BwE)
+* [D3 V5](https://d3js.org/)
+
+# Installing
+Clone this repository into your local project folder
+```
+https://github.com/damian1997/thorikosdash.git
+```
+
+Install packages
+```
+Npm install
+```
+
+To run a dev server type this into your terminal when you are inside your project folder
+```
+npm run dev
+```
+
+To serve production files type this into your terminal when you are inside your project folder
+```
+npm run prod
+```
+
+# Honourable mentions
+* [Kyle Bot](https://github.com/kylebot0)
