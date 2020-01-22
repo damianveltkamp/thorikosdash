@@ -6,8 +6,10 @@ Dashboard for making data visible and understandable
 * [Introduction](#introduction)
 * [Grid](#grid)
 * [Features](#features)
-* [Library's](#library's)
+* [Library's](#library-s)
 * [Installing](#installing)
+* [Honourable mentions](#honourable-mentions)
+* [License](#license)
 
 ## Demo
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ffb4fc85-192c-46d9-b242-6fc6df04a54b/deploy-status)](https://app.netlify.com/sites/hungry-hugle-63f43c/deploys)
@@ -149,3 +151,7 @@ npm run prod
 
 # Honourable mentions
 * [Kyle Bot](https://github.com/kylebot0)
+
+# License
+Find the license for the repository here
+[License](https://github.com/damian1997/thorikosdash/blob/master/LICENSE)
