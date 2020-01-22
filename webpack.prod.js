@@ -8,6 +8,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
+const CopyPlugin = require('copy-webpack-plugin');
 
 const parsePath = path.parse(__filename);
 module.exports = merge(common,{
@@ -54,6 +55,12 @@ module.exports = merge(common,{
                     autoprefixer()
                 ]
             }
-        })
+        }),
+        new CopyPlugin([
+            {
+                from: 'src/data',
+                to: '[path][name].[ext]',
+            }
+        ]),
     ]
 });

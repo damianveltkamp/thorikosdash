@@ -28,9 +28,9 @@ async function initMap() {
     buildMap()
 
     // Fetch data
-    const raw_data = await fetchData('/data/survey/surveydata_0.json')
+    const raw_data = await fetchData('/survey/surveydata_0.json')
     const clean_data = await nestData(raw_data)
-    const grid_data = await fetchData('/data/output/gridFinal.json')
+    const grid_data = await fetchData('/output/gridFinal.json')
     makeFilters(grid_data, raw_data)
     if(stored_filters.length) {
         // TODO stored_filters when present filter map
@@ -167,7 +167,7 @@ function filterCheck(node,storedFilters) {
 }
 
 async function buildMap() {
-    const data = await fetchData('/data/output/gridFinal.json')
+    const data = await fetchData('/output/gridFinal.json')
     renderD3(data)
 }
 
