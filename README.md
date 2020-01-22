@@ -7,4 +7,4 @@ Dashboard for making data visible and understandable
 [Demo Link](https://hungry-hugle-63f43c.netlify.com/)
 
 ## Concept
-<img src="dist/images/github-images/productionbuild.png">
+<img src="src/images/github-images/productionbuild.png">
