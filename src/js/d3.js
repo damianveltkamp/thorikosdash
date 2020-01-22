@@ -32,9 +32,6 @@ async function initMap() {
     const clean_data = await nestData(raw_data)
     const grid_data = await fetchData('/output/gridFinal.json')
     makeFilters(grid_data, raw_data)
-    if(stored_filters.length) {
-        // TODO stored_filters when present filter map
-    }
 }
 
 function nestData(raw_data) {
