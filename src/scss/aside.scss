@@ -1,0 +1,12 @@
+.aside {
+  z-index: 100;
+  position: fixed;
+  height: 100%;
+  width: 20%;
+  left: 0;
+  background: #eee;
+  overflow-y: scroll;
+}
+.filter-option {
+  display: block;
+}

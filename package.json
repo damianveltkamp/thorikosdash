@@ -33,7 +33,7 @@
     "d3": "^5.14.2",
     "d3-geo-projection": "^2.7.1",
     "geolib": "^3.2.0",
-    "mapbox-gl": "^1.6.0",
+    "mapbox-gl": "^1.6.1",
     "node-fetch": "^2.6.0"
   }
 }

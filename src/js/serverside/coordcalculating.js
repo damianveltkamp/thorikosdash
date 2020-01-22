@@ -1,12 +1,11 @@
-// TODO object aanmaken met initial min point and initial max point
-// TODO object aanmaken met alle punten aan de linker kant wanneer die missen en alle punten aan de rechter kant wanneer die missen
-// TODO correcte letter en getal als name mee geven aan de points
+// TODO REFACTOR THE WHOLE THING!
+// TODO ROWS KOPPELEN
 const fs = require('fs')
 const geolib = require('geolib')
 
 const settings = {
     outputPath: 'dist/data/output/',
-    outputFileName: 'gridJsonData'
+    outputFileName: 'gridJsonDataFinalhalf'
 }
 const extremeValues = [
     {
@@ -135,28 +134,28 @@ const extremeValues = [
         }
     },
     {
-        row: '6',
+        row: '51',
         min: {
-            '﻿ObjectID': '43',
-            ID: '43',
-            Name: 'F6',
-            Latitude: '37.73724545',
-            Longitude: '24.05435647',
-            Height: '33.0846',
-            Easting: '240431.4037',
-            Northing: '4180748.313',
-            Elevation: '33.0846'
+            '﻿ObjectID': '9',
+            ID: '9',
+            Name: 'A52',
+            Latitude: '37.74003844',
+            Longitude: '24.05166682',
+            Height: '44.5943',
+            Easting: '240154.3355',
+            Northing: '4181069.407',
+            Elevation: '44.5943'
         },
         max: {
-            '﻿ObjectID': '73',
-            ID: '73',
-            Name: 'J6',
-            Latitude: '37.73717265',
-            Longitude: '24.05661878',
-            Height: '36.456',
-            Easting: '240630.5474',
-            Northing: '4180733.956',
-            Elevation: '36.456'
+            '﻿ObjectID': '77',
+            ID: '77',
+            Name: 'K52',
+            Latitude: '37.73985209',
+            Longitude: '24.05733217',
+            Height: '96.2227',
+            Easting: '240702.7812',
+            Northing: '4181029.353',
+            Elevation: '96.2227'
         }
     },
     {
@@ -182,10 +181,7 @@ const extremeValues = [
             Easting: '240702.7812',
             Northing: '4181029.353',
             Elevation: '96.2227'
-        }
-    },
-    {
-        row: '53',
+        },
         min: {
             '﻿ObjectID': '56',
             ID: '56',
@@ -208,6 +204,53 @@ const extremeValues = [
             Northing: '4181075.743',
             Elevation: '99.6662'
         }
+    },
+    {
+        row: '53',
+        min: {
+            '﻿ObjectID': '9',
+            ID: '9',
+            Name: 'C/53',
+            Latitude: '37.74003844',
+            Longitude: '24.05166682',
+            Height: '44.5943',
+            Easting: '240154.3355',
+            Northing: '4181069.407',
+            Elevation: '44.5943'
+        },
+        max: {
+            '﻿ObjectID': '77',
+            ID: '77',
+            Name: 'K52',
+            Latitude: '37.73985209',
+            Longitude: '24.05733217',
+            Height: '96.2227',
+            Easting: '240702.7812',
+            Northing: '4181029.353',
+            Elevation: '96.2227'
+        },
+        min: {
+            '﻿ObjectID': '56',
+            ID: '56',
+            Name: 'R53',
+            Latitude: '37.74100146276254',
+            Longitude: '24.049985023339868',
+            Height: '134.5631',
+            Easting: '240556.7336',
+            Northing: '4181090.499',
+            Elevation: '134.5631'
+        },
+        max: {
+            '﻿ObjectID': '82',
+            ID: '82',
+            Name: 'L53',
+            Latitude: '37.74061987222393',
+            Longitude: '24.06134725897303',
+            Height: '99.6662',
+            Easting: '240756.5277',
+            Northing: '4181075.743',
+            Elevation: '99.6662'
+        }
     }
 ]
 const baseCases = [
@@ -216,80 +259,164 @@ const baseCases = [
         val: -3
     },
     {
+        identifier: 'C/B/',
+        val: -2.5
+    },
+    {
         identifier: 'B/',
         val: -2
+    },
+    {
+        identifier: 'B/A/',
+        val: -1.5
     },
     {
         identifier: 'A/',
         val: -1
     },
     {
+        identifier: 'A/A',
+        val: -0.5
+    },
+    {
         identifier: 'A',
         val: 0
+    },
+    {
+        identifier: 'AB',
+        val: 0.5
     },
     {
         identifier: 'B',
         val: 1
     },
     {
+        identifier: 'BC',
+        val: 1.5
+    },
+    {
         identifier: 'C',
         val: 2
+    },
+    {
+        identifier: 'CD',
+        val: 2.5
     },
     {
         identifier: 'D',
         val: 3
     },
     {
+        identifier: 'DE',
+        val: 3.5
+    },
+    {
         identifier: 'E',
         val: 4
+    },
+    {
+        identifier: 'EF',
+        val: 4.5
     },
     {
         identifier: 'F',
         val: 5
     },
     {
+        identifier: 'FG',
+        val: 5.5
+    },
+    {
         identifier: 'G',
         val: 6
+    },
+    {
+        identifier: 'GH',
+        val: 6.5
     },
     {
         identifier: 'H',
         val: 7
     },
     {
+        identifier: 'HI',
+        val: 7.5
+    },
+    {
         identifier: 'I',
         val: 8
+    },
+    {
+        identifier: 'IJ',
+        val: 8.5
     },
     {
         identifier: 'J',
         val: 9
     },
     {
+        identifier: 'JK',
+        val: 9.5
+    },
+    {
         identifier: 'K',
         val: 10
+    },
+    {
+        identifier: 'KL',
+        val: 10.5
     },
     {
         identifier: 'L',
         val: 11
     },
     {
+        identifier: 'LM',
+        val: 11.5
+    },
+    {
         identifier: 'M',
         val: 12
+    },
+    {
+        identifier: 'MN',
+        val: 12.5
     },
     {
         identifier: 'N',
         val: 13
     },
     {
+        identifier: 'NO',
+        val: 13.5
+    },
+    {
         identifier: 'O',
         val: 14
+    },
+    {
+        identifier: 'OP',
+        val: 14.5
     },
     {
         identifier: 'P',
         val: 15
     },
     {
+        identifier: 'PQ',
+        val: 15.5
+    },
+    {
         identifier: 'Q',
         val: 16
+    },
+    {
+        identifier: 'QR',
+        val: 16.5
+    },
+    {
+        identifier: 'R',
+        val: 17
     }
 ]
 coordcalc()
@@ -299,8 +426,128 @@ function coordcalc() {
         .map(calcBasecase)
         .map(calcPointsRight)
         .map(calcPointsLeft)
+    //     .map(rewrite)
+    // writeData(rows)
+    const minpoint1 = { identifier: 'C/',
+        row: '53',
+        coordinates:
+            { latitude: 37.74100146276254, longitude: 24.049985023339868 } }
+
+    const minpoint2 = { identifier: 'C/',
+        row: '52',
+        coordinates:
+            { latitude: 37.74055188911277, longitude: 24.049973828497215 } }
+    const maxpoint1 = { identifier: 'R',
+        row: '53',
+        coordinates:
+            { latitude: 37.74061987222393, longitude: 24.06134725897303 } }
+    const maxpoint2 = { identifier: 'R',
+        row: '52',
+        coordinates:
+            { latitude: 37.740170317254474, longitude: 24.06130295418022 } }
+    const halfRows = [
+        {
+            row: '1.5',
+            //0
+            minpoint1: rows[0].leftpoints[(rows[0].leftpoints.length -1)],
+            //1
+            minpoint2: rows[1].leftpoints[(rows[1].leftpoints.length -1)],
+            //0
+            maxpoint1: rows[0].rightpoints[(rows[0].rightpoints.length -1)],
+            //1
+            maxpoint2: rows[1].rightpoints[(rows[1].rightpoints.length -1)],
+        },
+        {
+            row: '2.5',
+            //1
+            minpoint1: rows[1].leftpoints[(rows[1].leftpoints.length -1)],
+            //2
+            minpoint2: rows[2].leftpoints[(rows[2].leftpoints.length -1)],
+            //1
+            maxpoint1: rows[1].rightpoints[(rows[1].rightpoints.length -1)],
+            //2
+            maxpoint2: rows[2].rightpoints[(rows[2].rightpoints.length -1)],
+        },
+        {
+            row: '3.5',
+            //2
+            minpoint1: rows[2].leftpoints[(rows[2].leftpoints.length -1)],
+            //3
+            minpoint2: rows[3].leftpoints[(rows[3].leftpoints.length -1)],
+            //2
+            maxpoint1: rows[2].rightpoints[(rows[2].rightpoints.length -1)],
+            //3
+            maxpoint2: rows[3].rightpoints[(rows[3].rightpoints.length -1)],
+        },
+        {
+            row: '4.5',
+            //3
+            minpoint1: rows[3].leftpoints[(rows[3].leftpoints.length -1)],
+            //4
+            minpoint2: rows[4].leftpoints[(rows[4].leftpoints.length -1)],
+            //3
+            maxpoint1: rows[3].rightpoints[(rows[3].rightpoints.length -1)],
+            //4
+            maxpoint2: rows[4].rightpoints[(rows[4].rightpoints.length -1)],
+        },
+        //51
+        {
+            row: '0.5',
+            //5
+            minpoint1: rows[5].leftpoints[(rows[5].leftpoints.length -1)],
+            //0
+            minpoint2: rows[0].leftpoints[(rows[0].leftpoints.length -1)],
+            //5
+            maxpoint1: rows[5].rightpoints[(rows[5].rightpoints.length -1)],
+            //0
+            maxpoint2: rows[0].rightpoints[(rows[0].rightpoints.length -1)],
+
+        },
+        //52
+        {
+            row: '51.5',
+            //5
+            minpoint1: rows[5].leftpoints[(rows[5].leftpoints.length -1)],
+            //6
+            minpoint2: rows[6].leftpoints[(rows[6].leftpoints.length -1)],
+            //5
+            maxpoint1: rows[5].rightpoints[(rows[5].rightpoints.length -1)],
+            //6
+            maxpoint2: rows[6].rightpoints[(rows[6].rightpoints.length -1)],
+        },
+        {
+            row: '51.5',
+            //5
+            minpoint1: rows[5].leftpoints[(rows[5].leftpoints.length -1)],
+            //6
+            minpoint2: rows[6].leftpoints[(rows[6].leftpoints.length -1)],
+            //5
+            maxpoint1: rows[5].rightpoints[(rows[5].rightpoints.length -1)],
+            //6
+            maxpoint2: rows[6].rightpoints[(rows[6].rightpoints.length -1)],
+        },
+        ,
+        {
+            row: '52.5',
+            //5
+            minpoint1: minpoint1,
+            //6
+            minpoint2: minpoint2,
+            //5
+            maxpoint1: maxpoint1,
+            //6
+            maxpoint2: maxpoint2,
+        }
+    ]
+
+    const foo = halfRows
+        .map(calcMinPoint)
+        .map(calcMaxPoint)
+        .map(calcBasecase)
+        .map(calcBearings2)
+        .map(calcPointsRight2)
         .map(rewrite)
-    writeData(rows)
+    writeData(foo)
 }
 
 function calcBearings(extremeValues) {
@@ -327,12 +574,22 @@ function calcBasecase(row) {
     let found = false
     do {
         baseCases.forEach((basecase) => {
-            if(row.min.name.charAt(0) == basecase.identifier) {
-                row.basecase = {
-                    minLetter: row.min.name.charAt(0),
-                    val: basecase.val
+            if(row.min.name.charAt(1) !== '/') {
+                if(row.min.name.charAt(0) == basecase.identifier) {
+                    row.basecase = {
+                        minLetter: row.min.name.charAt(0),
+                        val: basecase.val
+                    }
+                    found = true
                 }
-                found = true
+            } else {
+                if(row.min.name.charAt(0) == basecase.identifier.charAt(0) && basecase.identifier.charAt(1) == '/' && !basecase.identifier.charAt(2)) {
+                    row.basecase = {
+                        minLetter: row.min.name.charAt(0)+row.min.name.charAt(1),
+                        val: basecase.val
+                    }
+                    found = true
+                }
             }
         })
     } while(found == false)
@@ -340,14 +597,16 @@ function calcBasecase(row) {
 }
 function calcPointsRight(row) {
     let i = row.basecase.val
-    let foo = 0
+    let prevPoint = 0
     let initial = true
     row.rightpoints = []
+
     do{
         const point = new Object()
         if(initial == true) {
             const identifierName = baseCases.find(x => x.val === i).identifier
-            point.identifier = identifierName + row.row
+            point.identifier = identifierName
+            point.row = row.row
             point.coordinates = {
                 latitude: row.min.latitude,
                 longitude: row.min.longitude
@@ -355,86 +614,94 @@ function calcPointsRight(row) {
             row.rightpoints.push(point)
             initial = false
         } else {
-            const identifierName = baseCases.find(x => x.val === (row.basecase.val+ (foo +1) )).identifier
-            point.identifier = identifierName + row.row
+            const identifierName = baseCases.find(x => x.val === (i)).identifier
+            point.identifier = identifierName
+            point.row = row.row
             point.coordinates = geolib.computeDestinationPoint(
-                { latitude: row.rightpoints[foo].coordinates.latitude, longitude: row.rightpoints[foo].coordinates.longitude },
-                50,
+                { latitude: row.rightpoints[prevPoint].coordinates.latitude, longitude: row.rightpoints[prevPoint].coordinates.longitude },
+                25,
                 row.bearing
             )
             row.rightpoints.push(point)
-            foo +=1
+            prevPoint +=1
         }
-    i+=1
-    } while(i <= 16)
+        i+=0.5
+    } while(i <= 17)
     return row
 }
 function calcPointsLeft(row) {
-    let i = row.basecase.val
-    let foo = 0
+    let i = (row.basecase.val-0.5)
+    let prevPoint = 0
     let initial = true
     row.leftpoints = []
     do {
         const point = new Object()
         if(initial == true) {
-            const identifierName = baseCases.find(x => x.val === (row.basecase.val-1)).identifier
-            point.identifier = identifierName + row.row
+            const identifierName = baseCases.find(x => x.val === (row.basecase.val-0.5)).identifier
+            point.identifier = identifierName
+            point.row = row.row
             point.coordinates = geolib.computeDestinationPoint(
                 { latitude: row.min.latitude, longitude: row.min.longitude },
-                -50,
+                -25,
                 row.bearing
             )
             row.leftpoints.push(point)
             initial = false
         } else {
-            const identifierName = baseCases.find(x => x.val === (i-1)).identifier
-            point.identifier = identifierName + row.row
+            const identifierName = baseCases.find(x => x.val === (i)).identifier
+            point.identifier = identifierName
+            point.row = row.row
             point.coordinates = geolib.computeDestinationPoint(
-                { latitude: row.leftpoints[foo].coordinates.latitude, longitude: row.leftpoints[foo].coordinates.longitude },
-                -50,
+                { latitude: row.leftpoints[prevPoint].coordinates.latitude, longitude: row.leftpoints[prevPoint].coordinates.longitude },
+                -25,
                 row.bearing
             )
             row.leftpoints.push(point)
-            foo +=1
+            prevPoint +=1
         }
-        i-=1
-    } while(i > -3)
+        i-=0.5
+    } while(i >= -3)
     return row
 }
 function rewrite(row) {
     const cleanedArray = []
-    row.rightpoints.forEach((rightpoint) => {
-        const newObj = new Object()
-        newObj.type = "Feature"
-        newObj.properties = {
-            name: rightpoint.identifier
-        }
-        newObj.geometry = {
-            type: "Point",
-            coordinates: [
-                rightpoint.coordinates.longitude,rightpoint.coordinates.latitude
-            ]
-        }
-        cleanedArray.push(newObj)
-    })
-    row.leftpoints.forEach((leftpoint) => {
-        const newObj = new Object()
-        newObj.type = "Feature"
-        newObj.properties = {
-            name: leftpoint.identifier
-        }
-        newObj.geometry = {
-            type: "Point",
-            coordinates: [
-                leftpoint.coordinates.longitude,leftpoint.coordinates.latitude
-            ]
-        }
-        cleanedArray.unshift(newObj)
-    })
+    if(row.rightpoints) {
+        row.rightpoints.forEach((rightpoint) => {
+            const newObj = new Object()
+            newObj.type = "Feature"
+            newObj.properties = {
+                name: rightpoint.identifier,
+                row: rightpoint.row
+            }
+            newObj.geometry = {
+                type: "Point",
+                coordinates: [
+                    rightpoint.coordinates.longitude,rightpoint.coordinates.latitude
+                ]
+            }
+            cleanedArray.push(newObj)
+        })
+    }
+    if(row.leftpoints) {
+        row.leftpoints.forEach((leftpoint) => {
+            const newObj = new Object()
+            newObj.type = "Feature"
+            newObj.properties = {
+                name: leftpoint.identifier,
+                row: leftpoint.row
+            }
+            newObj.geometry = {
+                type: "Point",
+                coordinates: [
+                    leftpoint.coordinates.longitude,leftpoint.coordinates.latitude
+                ]
+            }
+            cleanedArray.unshift(newObj)
+        })
+    }
 
     return cleanedArray
 }
-
 function writeData(data, fileIndex = 0) {
     fs.writeFile(settings.outputPath + settings.outputFileName +"_"+ fileIndex +".json",
         JSON.stringify(data,null,4),
@@ -448,4 +715,80 @@ function writeData(data, fileIndex = 0) {
                 console.log("The file was saved!")
             }
         })
+}
+
+
+
+function calcBearings2(extremeValues) {
+    extremeValues.bearing = geolib.getRhumbLineBearing(
+        { latitude: extremeValues.min.Latitude, longitude: extremeValues.min.Longitude },
+        { latitude: extremeValues.max.Latitude, longitude: extremeValues.max.Longitude }
+    )
+    return extremeValues
+}
+function calcMinPoint(halfRow) {
+    halfRow.min = {}
+    halfRow.min.name = halfRow.minpoint1.identifier
+    const bearing = geolib.getRhumbLineBearing(
+        { latitude: halfRow.minpoint1.coordinates.latitude, longitude: halfRow.minpoint1.coordinates.longitude },
+        { latitude: halfRow.minpoint2.coordinates.latitude, longitude: halfRow.minpoint2.coordinates.longitude }
+    )
+    const coords = geolib.computeDestinationPoint(
+        { latitude: halfRow.minpoint1.coordinates.latitude, longitude: halfRow.minpoint1.coordinates.longitude },
+        25,
+        bearing
+    )
+    halfRow.min.Latitude = coords.latitude
+    halfRow.min.Longitude = coords.longitude
+    return halfRow
+}
+function calcMaxPoint(halfRow) {
+    halfRow.max = {}
+    halfRow.max.name = halfRow.maxpoint1.identifier
+    const bearing = geolib.getRhumbLineBearing(
+        { latitude: halfRow.maxpoint1.coordinates.latitude, longitude: halfRow.maxpoint1.coordinates.longitude },
+        { latitude: halfRow.maxpoint2.coordinates.latitude, longitude: halfRow.maxpoint2.coordinates.longitude }
+    )
+    const coords = geolib.computeDestinationPoint(
+        { latitude: halfRow.maxpoint1.coordinates.latitude, longitude: halfRow.maxpoint1.coordinates.longitude },
+        25,
+        bearing
+    )
+    halfRow.max.Latitude = coords.latitude
+    halfRow.max.Longitude = coords.longitude
+    return halfRow
+}
+function calcPointsRight2(row) {
+    let i = row.basecase.val
+    let prevPoint = 0
+    let initial = true
+    row.rightpoints = []
+
+    do{
+        const point = new Object()
+        if(initial == true) {
+            const identifierName = baseCases.find(x => x.val === i).identifier
+            point.identifier = identifierName
+            point.row = row.row
+            point.coordinates = {
+                latitude: row.min.Latitude,
+                longitude: row.min.Longitude
+            }
+            row.rightpoints.push(point)
+            initial = false
+        } else {
+            const identifierName = baseCases.find(x => x.val === (i)).identifier
+            point.identifier = identifierName
+            point.row = row.row
+            point.coordinates = geolib.computeDestinationPoint(
+                { latitude: row.rightpoints[prevPoint].coordinates.latitude, longitude: row.rightpoints[prevPoint].coordinates.longitude },
+                25,
+                row.bearing
+            )
+            row.rightpoints.push(point)
+            prevPoint +=1
+        }
+        i+=0.5
+    } while(i <= 17)
+    return row
 }
